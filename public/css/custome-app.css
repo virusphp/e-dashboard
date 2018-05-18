@@ -1,0 +1,17 @@
+ol li.breadcrumb-item a {
+    text-decoration: none;
+}
+
+.plus-m {
+    margin-bottom: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: floralwhite;
+    border: none;
+    background: linear-gradient(to bottom, #dfdcdc 0%, rgb(219, 216, 216) 100%);
+}

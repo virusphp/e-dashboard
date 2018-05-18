@@ -1,0 +1,49 @@
+@extends('layouts.dua')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="intro-text">
+                    <center><h1>Portal Applikasi E-Hospital</h1></center>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <a class="logo-menu" href="http://epasien.rsudkraton.com">
+                                    <img width="75" height="75" src="{{ asset('images/register.png')  }}" alt=""> 
+                                    Pendaftaran Rawat Jalan
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <a class="logo-menu" href="http://edokter.rsudkraton.com">
+                                    <img width="75" height="75" src="{{ asset('images/dokter.png')  }}" alt=""> 
+                                    Jadwal Dokter
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <a class="logo-menu" href="http://eapotik.rsudkraton.com">
+                                    <img width="75" height="75" src="{{ asset('images/apotik.png')  }}" alt=""> 
+                                    e-apotik
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <a class="logo-menu" href="http://docs.rsudkraton.com">
+                                    <img width="75" height="75" src="{{ asset('images/kontak.png')  }}" alt=""> 
+                                    Kontak Kami
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
