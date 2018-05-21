@@ -60,8 +60,8 @@
                                 Daftar Kunjungan
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('daftar.poli') }}">Poliklinik</a>
-                                    <a class="dropdown-item" href="{{ route('daftar.chartjs') }}">Chart 2</a>
+                                    <a class="dropdown-item" href="{{ route('daftar.poli') }}">Tabel Rawat Jalan</a>
+                                    <a class="dropdown-item" href="{{ route('daftar.chartjs') }}">Chart Rawat Jalan</a>
                                 </div>
                         </li>
                         <li class="nav-item dropdown">

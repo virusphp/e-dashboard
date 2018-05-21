@@ -12,13 +12,43 @@ class Poli extends Koneksi
        parent::__constuct();
     }
 
-    public function getAll()
+    public function getKlinikHarian($tanggal)
     {
-        return DB::connection($this->conn)
-                ->table('Rawat_Jalan')
-                ->select('no_reg','no_RM','kd_poliklinik','kd_dokter','waktu_anamnesa')
-                ->orderBy('waktu_anamnesa', 'desc')
-                ->paginate(5);
+        $poli = DB::connection($this->conn)
+            ->table('Registrasi as R')
+            ->join('Rawat_Jalan as RJ',function($join) {
+                $join->on('R.no_reg', '=', 'RJ.no_reg')
+                    ->join('Sub_Unit as S', function($join) {
+                        $join->on('RJ.kd_poliklinik', '=', 'S.kd_sub_unit');
+                    });
+            })             
+            ->select('S.nama_sub_unit as nama_klinik',DB::raw("count(RJ.kd_poliklinik) as total_klinik"))
+            ->where('R.tgl_reg', '=', $tanggal)
+            ->groupBy('S.nama_sub_unit', 'RJ.kd_poliklinik')
+            ->orderBy('RJ.kd_poliklinik', 'asc')
+            ->get();
+
+        return $poli;
+    }
+    
+    public function getKlinikbulanan($tanggal)
+    {
+        $poli = DB::connection($this->conn)
+            ->table('Registrasi as R')
+            ->join('Rawat_Jalan as RJ',function($join) {
+                $join->on('R.no_reg', '=', 'RJ.no_reg')
+                    ->join('Sub_Unit as S', function($join) {
+                        $join->on('RJ.kd_poliklinik', '=', 'S.kd_sub_unit');
+                    });
+            })             
+            ->select('S.nama_sub_unit as nama_klinik',DB::raw("count(RJ.kd_poliklinik) as total_klinik"))
+            ->whereMonth('R.tgl_reg', $tanggal['bulan'])
+            ->whereYear('R.tgl_reg', $tanggal['tahun'])
+            ->groupBy('S.nama_sub_unit', 'RJ.kd_poliklinik')
+            ->orderBy('RJ.kd_poliklinik', 'asc')
+            ->get();
+
+        return $poli;
     }
 
     public function getData()
@@ -38,6 +68,74 @@ class Poli extends Koneksi
                 ->where('no_reg', 'like', '%16%')
                 // ->limit(10)
                 ->get();
+        return $poli;
+    }
+
+    public function chartharian($tanggal)
+    {
+        $poli = $this->getChartHarian($tanggal);
+        $chartHarian = array_column($poli, 'total_klinik');
+        return $chartHarian;
+    }
+
+    public function chartklinikharian($tanggal)
+    {
+        $poli = $this->getChartHarian($tanggal);
+        $chartHarian = array_column($poli, "nama_klinik");
+        return $chartHarian;
+    }
+
+    public function getChartHarian($tanggal)
+    {
+        $poli = DB::connection($this->conn)
+        ->table('Registrasi as R')
+        ->join('Rawat_Jalan as RJ',function($join) {
+            $join->on('R.no_reg', '=', 'RJ.no_reg')
+                ->join('Sub_Unit as S', function($join) {
+                    $join->on('RJ.kd_poliklinik', '=', 'S.kd_sub_unit');
+                });
+        })             
+        ->select('S.nama_sub_unit as nama_klinik',DB::raw("count(RJ.kd_poliklinik) as total_klinik"))
+        ->where('R.tgl_reg', '=', $tanggal)
+        ->groupBy('S.nama_sub_unit', 'RJ.kd_poliklinik')
+        ->orderBy('RJ.kd_poliklinik', 'asc')
+        ->get()->toArray();
+
+        return $poli;
+    } 
+
+    public function chartbulanan($tanggal)
+    {
+        $poli = $this->getChartBulanan($tanggal);
+        $chartBulanan = array_column($poli, "total_klinik");
+        return $chartBulanan;
+    }
+    
+    public function chartklinikbulanan($tanggal)
+    {
+        $poli = $this->getChartBulanan($tanggal);
+        $chartBulanan = array_column($poli, "nama_klinik");
+        return $chartBulanan;
+    }
+
+    public function getChartBulanan($tanggal)
+    {
+
+        $poli = DB::connection($this->conn)
+            ->table('Registrasi as R')
+            ->join('Rawat_Jalan as RJ',function($join) {
+                $join->on('R.no_reg', '=', 'RJ.no_reg')
+                    ->join('Sub_Unit as S', function($join) {
+                        $join->on('RJ.kd_poliklinik', '=', 'S.kd_sub_unit');
+                    });
+            })             
+            ->select('S.nama_sub_unit as nama_klinik',DB::raw("count(RJ.kd_poliklinik) as total_klinik"))
+            ->whereMonth('R.tgl_reg', $tanggal['bulan'])
+            ->whereYear('R.tgl_reg', $tanggal['tahun'])
+            ->groupBy('S.nama_sub_unit', 'RJ.kd_poliklinik')
+            ->orderBy('RJ.kd_poliklinik', 'asc')
+            ->get()->toArray();
+
         return $poli;
     }
 
@@ -62,6 +160,7 @@ class Poli extends Koneksi
 
         return $jumlah;
     }
+
     public function tahundb()
     {
         $tahun = DB::connection($this->conn)
@@ -70,102 +169,5 @@ class Poli extends Koneksi
             ->distinct()
             ->get();
         return $tahun;
-    }
-
-    public function chartharian($tanggal)
-    {
-        // dd($tanggal);
-        $poli = DB::connection($this->conn)
-            ->table('Registrasi as R')
-            ->join('Rawat_Jalan as RJ', 'R.no_reg', '=', 'RJ.no_reg')
-            ->join('Sub_Unit as S', 'RJ.kd_poliklinik', '=', 'S.kd_sub_unit')
-            ->select(DB::raw("count(RJ.kd_poliklinik) as total_klinik, kd_poliklinik"))
-            ->where('R.tgl_reg', '=', $tanggal)
-            ->groupBy('RJ.kd_poliklinik')
-            ->orderBy('RJ.kd_poliklinik', 'asc')
-            ->get()->toArray();
-
-        $poli = array_column($poli, 'total_klinik');
-
-        return $poli;
-    } 
-
-    public function chartbulanan($tanggal)
-    {
-        // dd($tanggal['bulan']);
-        $poli = DB::connection($this->conn)
-            ->table('Registrasi as R')
-            ->join('Rawat_Jalan as RJ', 'R.no_reg', '=', 'RJ.no_reg')
-            ->join('Sub_Unit as S', 'RJ.kd_poliklinik', '=', 'S.kd_sub_unit')
-            ->select(DB::raw("count(RJ.kd_poliklinik) as total_klinik, kd_poliklinik"))
-            ->whereMonth('R.tgl_reg', $tanggal['bulan'])
-            ->whereYear('R.tgl_reg', $tanggal['tahun'])
-            ->groupBy('RJ.kd_poliklinik')
-            ->orderBy('RJ.kd_poliklinik', 'asc')
-            ->get()->toArray();
-
-        $poli = array_column($poli, 'total_klinik');
-
-        return $poli;
-    }
-
-    public function chartklinikharian($tanggal)
-    {
-        $poli = DB::connection($this->conn)
-            ->table('Registrasi as R')
-            ->join('Rawat_Jalan as RJ',function($join) {
-                $join->on('R.no_reg', '=', 'RJ.no_reg')
-                    ->join('Sub_Unit as S', function($join) {
-                        $join->on('RJ.kd_poliklinik', '=', 'S.kd_sub_unit');
-                            // ->select('S.nama_sub_unit');
-                    });
-            })             
-            ->select('S.nama_sub_unit as nama_klinik','RJ.kd_poliklinik')
-            // ->distinct()
-            ->where('R.tgl_reg', '=', $tanggal)
-            ->groupBy('S.nama_sub_unit', 'RJ.kd_poliklinik')
-            // ->orderBy('s.nama_sub_unit`', 'asc')
-            ->get()->toArray();
-
-        $poli = array_column($poli, 'nama_klinik');
-
-        return $poli;
-    }
-
-    public function chartklinikbulanan($tanggal)
-    {
-        $poli = DB::connection($this->conn)
-            ->table('Registrasi as R')
-            ->join('Rawat_Jalan as RJ',function($join) {
-                $join->on('R.no_reg', '=', 'RJ.no_reg')
-                    ->join('Sub_Unit as S', function($join) {
-                        $join->on('RJ.kd_poliklinik', '=', 'S.kd_sub_unit');
-                    });
-            })             
-            ->select('S.nama_sub_unit as nama_klinik','RJ.kd_poliklinik')
-            ->whereMonth('R.tgl_reg', $tanggal['bulan'])
-            ->whereYear('R.tgl_reg', $tanggal['tahun'])
-            ->groupBy('S.nama_sub_unit', 'RJ.kd_poliklinik')
-            ->get()->toArray();
-
-        $poli = array_column($poli, 'nama_klinik');
-
-        return $poli;
-    }
-
-    public function chartjsall()
-    {
-        $poli = DB::connection($this->conn)
-            ->table('Registrasi as R')
-            ->join('Rawat_Jalan as RJ', 'R.no_reg', '=', 'RJ.no_reg')
-            ->select(DB::raw("count(RJ.kd_poliklinik) as total_klinik"))
-            ->where('RJ.waktu_anamnesa', 'like', '%2016%')
-            ->groupBy(DB::raw("month(RJ.waktu_anamnesa)"))
-            // ->orderBy('RJ.kd_poliklinik', 'asc')
-            ->get()->toArray();
-
-        $poli = array_column($poli, 'total_klinik');
-
-        return $poli;
     }
 }

@@ -15,3 +15,8 @@ ol li.breadcrumb-item a {
     border: none;
     background: linear-gradient(to bottom, #dfdcdc 0%, rgb(219, 216, 216) 100%);
 }
+
+.table td, .table th {
+    font-family: "Times New Roman", Times, serif;
+    padding: 7px;
+}
