@@ -108,7 +108,6 @@
 
     $('#print_tabel').on('click',function(){
         var data = $('#form_tabel').serialize();
-        console.log(data);
         window.open('klinik/print?' + data ,'_blank');
      
     });
@@ -116,7 +115,6 @@
     $('#print_tabel_harian').on('click',function(){
         var url = window.location.toString();
         var data = url.split('?')
-        {{--  console.log(data);  --}}
         window.open('klinik/print?' + data[1] ,'_blank');
     });
 

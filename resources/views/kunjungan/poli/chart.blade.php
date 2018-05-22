@@ -72,11 +72,11 @@
         datasets: [{
             label: 'Klinik',
             backgroundColor: "rgba(220,220,220,0.5)",
-            pointBackgroundColor: "rgba(220,220,220,0.5)",
+            pointBackgroundColor: "rgba(0,0,255,0.3)",
             data: nama_klinik
         }, {
             label: 'Pengunjung',
-            backgroundColor: "rgba(151,187,205,0.5)",
+            backgroundColor: "rgba(0,0,255,0.3)",
             data: data_pengunjung
         }]
     };
@@ -91,7 +91,8 @@
                 elements: {
                     rectangle: {
                         borderWidth: 3,
-                        borderColor: 'rgb(0, 255, 0)',
+                        borderColor: 'rgba(0,0,255,0.3)',
+                        pointBackgroundColor: "rgba(220,220,220,0.5)",
                         borderSkipped: 'bottom'
                     }
                 },

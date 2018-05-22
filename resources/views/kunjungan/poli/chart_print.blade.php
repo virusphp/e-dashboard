@@ -37,13 +37,13 @@
     var nama_klinik = <?php echo $klinik; ?>;
     var data_pengunjung = <?php echo $pengunjung; ?>;
 
-
+    $('#body').addClass('L');
     var barChartData = {
         labels: nama_klinik,
         datasets: [{
             label: 'Klinik',
-            backgroundColor: "rgba(220,220,220,0.5)",
-            pointBackgroundColor: "rgba(220,220,220,0.5)",
+            backgroundColor: "rgba(0,0,255,0.3)",
+            pointBackgroundColor: "rgba(0,0,255,0.3)",
             data: nama_klinik
         }, {
             label: 'Pengunjung',
@@ -51,7 +51,6 @@
             data: data_pengunjung
         }]
     };
-
 
     window.onload = function() {
         var ctx = document.getElementById("canvas").getContext("2d");
@@ -81,7 +80,7 @@
         window.print(); 
         setTimeout(window.close,0);
     };
-   $('#body').addClass('L') 
+   
    
 </script>
 @endpush
