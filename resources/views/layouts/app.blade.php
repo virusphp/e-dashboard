@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>RSUD Kraton | Portal App</title>
+    <title>RSUD Kraton | Dashboard</title>
 
    
     {{-- <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>

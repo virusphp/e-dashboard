@@ -18,7 +18,7 @@ class PoliklinikController extends Controller
         return view('kunjungan.poli.tabel', compact('klinik'));
     }
 
-    public function getPrint(Request $request, Poli $poli)
+    public function getPrintTabel(Request $request, Poli $poli)
     {
         $klinik = $this->getTabel($request, $poli);
         $data = [];
@@ -47,36 +47,47 @@ class PoliklinikController extends Controller
 
     public function indexChart(Request $request, Poli $poli)
     {
-        // dd($request->all());
-        if ($request->hari == NULL && $request->bulan == NULL && $request->tahun == NULL) {
-            $tanggal = date('Y-m-d');
-            $pengunjung = $poli->chartharian($tanggal);
-            $klinik = $poli->chartklinikharian($tanggal);
-            // $klinik = $poli->chartjsall();
-        } elseif (!$request->bulan || !$request->tahun) {
-            // $tanggal = $request->tahun.'-'.$request->bulan.'-'.$request->tanggal;
-            $tanggal = $request->hari;
-            $pengunjung = $poli->chartharian($tanggal);
-            $klinik = $poli->chartklinikharian($tanggal);
-        } else {
-            $bulan = $request->only('bulan','tahun');
-            $tanggal = $request->tahun.'-'.$request->bulan;
-            $pengunjung = $poli->chartbulanan($bulan);
-            $klinik = $poli->chartklinikbulanan($bulan);
-            // dd($tanggal);
-        }
+        $data = $this->getChart($request, $poli); 
+        $klinik = $poli->getKlinik($data[0]);
+        $pengunjung = $poli->getPengunjung($data[0]);
+        $tanggal = $data[1]; 
 
-        $tanggal = [tanggalFormat($tanggal)];
+        return view('kunjungan.poli.chart')
+                ->with('klinik',json_encode($klinik, JSON_NUMERIC_CHECK))
+                ->with('tanggal', json_encode($tanggal, JSON_NUMERIC_CHECK))
+                ->with('pengunjung',json_encode($pengunjung, JSON_NUMERIC_CHECK));
+    }
 
-        return view('kunjungan.poli.chartjs')
+    public function getPrintChart(Request $request, Poli $poli)
+    {
+        $data = $this->getChart($request, $poli); 
+        $klinik = $poli->getKlinik($data[0]);
+        $pengunjung = $poli->getPengunjung($data[0]);
+        $tanggal = $data[1]; 
+
+        return view('kunjungan.poli.chart_print')
                 ->with('klinik',json_encode($klinik, JSON_NUMERIC_CHECK))
                 ->with('tanggal', json_encode($tanggal, JSON_NUMERIC_CHECK))
                 ->with('pengunjung',json_encode($pengunjung, JSON_NUMERIC_CHECK));
     }
    
-    public function getChart(Request $request, Poli $poli)
+    public function getChart($request,$poli)
     {
+        if ($request->hari == NULL && $request->bulan == NULL && $request->tahun == NULL) {
+            $tanggal = date('Y-m-d');
+            $klinik = $poli->getChartHarian($tanggal);
+        } elseif (!$request->bulan || !$request->tahun) {
+            $tanggal = $request->hari;
+            $klinik = $poli->getChartHarian($tanggal);
+        } else {
+            $bulan = $request->only('bulan','tahun');
+            $tanggal = $request->tahun.'-'.$request->bulan;
+            $klinik = $poli->getChartBulanan($bulan);
+        }
 
+        $tanggal = [tanggalFormat($tanggal)];
+
+        return [$klinik, $tanggal];
     }
    
     public function coba(Request $request, Poli $poli)

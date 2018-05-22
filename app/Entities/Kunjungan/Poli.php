@@ -71,18 +71,16 @@ class Poli extends Koneksi
         return $poli;
     }
 
-    public function chartharian($tanggal)
+    public function getPengunjung($poli)
     {
-        $poli = $this->getChartHarian($tanggal);
-        $chartHarian = array_column($poli, 'total_klinik');
-        return $chartHarian;
+        $pengunjung = array_column($poli, 'total_klinik');
+        return $pengunjung;
     }
 
-    public function chartklinikharian($tanggal)
+    public function getKlinik($poli)
     {
-        $poli = $this->getChartHarian($tanggal);
-        $chartHarian = array_column($poli, "nama_klinik");
-        return $chartHarian;
+        $klinik = array_column($poli, "nama_klinik");
+        return $klinik;
     }
 
     public function getChartHarian($tanggal)
@@ -104,23 +102,8 @@ class Poli extends Koneksi
         return $poli;
     } 
 
-    public function chartbulanan($tanggal)
-    {
-        $poli = $this->getChartBulanan($tanggal);
-        $chartBulanan = array_column($poli, "total_klinik");
-        return $chartBulanan;
-    }
-    
-    public function chartklinikbulanan($tanggal)
-    {
-        $poli = $this->getChartBulanan($tanggal);
-        $chartBulanan = array_column($poli, "nama_klinik");
-        return $chartBulanan;
-    }
-
     public function getChartBulanan($tanggal)
     {
-
         $poli = DB::connection($this->conn)
             ->table('Registrasi as R')
             ->join('Rawat_Jalan as RJ',function($join) {

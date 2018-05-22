@@ -40,7 +40,3 @@
     </div>
 </div>
 @endsection
-
-@push('css')
-
-@endpush
