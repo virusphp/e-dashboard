@@ -28,7 +28,7 @@
                         <button id="print_chart" type="submit" class="btn btn-sm btn-dark mb-2 mr-sm-2">
                             <i class="fa fa-print"></i>
                         </button>
-                        <form id="print_chart_harian" action="{{ route('daftar.chartjs') }}" id="form" role="search" class="form-inline">
+                        <form id="form_chart_harian" action="{{ route('daftar.chartjs') }}" id="form" role="search" class="form-inline">
                             <label class="mb-2 control-label mr-sm-2">Per Hari</label>
                             <div class="mb-2 input-append date form_date mr-sm-2" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="dd-mm-yyyy">
                                 <input class="form-control form-control-sm" id="hari" placeholder="Tanggal" type="text" name="hari" readonly>
