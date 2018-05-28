@@ -122,11 +122,26 @@
     });
 
    
-    $('#print_chart_harian').on('click',function(){
+    $('#d').on('click',function(){
         var url = window.location.toString();
         var data = url.split('?')
         window.open('chartjs/print?' + data[1] ,'_blank');
     });
+
+    document.getElementById('print_chart_harian').addEventListener("click", downloadPDF);
+    function downloadPDF() {
+        var canvas = document.querySelector('#canvas');
+          //creates image
+          var canvasImg = canvas.toDataURL("image/png", 1.0);
+        
+          //creates PDF from img
+          var doc = new jsPDF('landscape');
+          doc.setFontSize(20);
+          doc.setFillColor(204, 204,204, 0);
+          doc.rect(10, 10, 0, 0, "F");
+          doc.addImage(canvasImg, 'png', 10, 10, 280, 150 );
+          doc.save('laporan_kunjungan_harian.pdf');
+      }
 
     document.getElementById('print_chart').addEventListener("click", downloadPDF);
     function downloadPDF() {

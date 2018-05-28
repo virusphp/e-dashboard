@@ -73,7 +73,7 @@ function tanggalFormat($tanggal)
 		'Desember'
 	);
     $pecahkan = explode('-', $tanggal);
-    $tanggal = isset($pecahkan[2]) ? $pecahkan[2] : '';
+    $tanggal = isset($pecahkan[2]) ? $pecahkan[2] : 'Bulan';
 
     return  $tanggal. ' ' . $bulan[ (int)$pecahkan[1] ]. ' ' . $pecahkan[0];
 }

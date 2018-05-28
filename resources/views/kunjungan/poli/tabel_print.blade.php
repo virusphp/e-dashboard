@@ -6,7 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="text-center">
-                    <h2><strong>LAPORAN KUNJUNGAN PASIEN</strong></h2>
+                    <h3><strong>LAPORAN KUNJUNGAN PASIEN</strong></h3>
+                    <h4><strong>{{ $tanggal }}</strong></h4>
                 </div>
 
                 <div class="card-body">

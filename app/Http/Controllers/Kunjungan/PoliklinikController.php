@@ -15,19 +15,23 @@ class PoliklinikController extends Controller
 
     public function index(Request $request, Poli $poli)
     {
-        $klinik = $this->getTabel($request, $poli);
+        $poli = $this->getTabel($request, $poli);
+        $klinik = $poli[0];
         return view('kunjungan.poli.tabel', compact('klinik'));
     }
 
     public function getPrintTabel(Request $request, Poli $poli)
     {
-        $klinik = $this->getTabel($request, $poli);
+        $poli = $this->getTabel($request, $poli);
+        // dd($klinik[0]);
         $data = [];
-        foreach($klinik as $val){
+        foreach($poli[0] as $val){
             $data[] .= $val->total_klinik;
         }
+        $klinik = $poli[0];
+        $tanggal = tanggalFormat($poli[1]);
         $total = array_sum($data);
-        return view('kunjungan.poli.tabel_print', compact('klinik', 'total'));
+        return view('kunjungan.poli.tabel_print', compact('klinik', 'total', 'tanggal'));
     }
 
     public function getTabel($request, $poli)
@@ -40,10 +44,11 @@ class PoliklinikController extends Controller
             $klinik = $poli->getKlinikHarian($tanggal);
         } else {
             $bulan = $request->only('bulan','tahun');
+            $tanggal = $request->tahun.'-'.$request->bulan;
             $klinik = $poli->getKlinikBulanan($bulan);
         }
 
-        return $klinik;
+        return [$klinik, $tanggal];
     }
 
     public function indexChart(Request $request, Poli $poli)
