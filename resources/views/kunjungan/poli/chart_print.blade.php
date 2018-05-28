@@ -31,6 +31,7 @@
 @endpush
 @push('scripts')
 <script src="{{ asset('js/chart.bundle.js') }}"></script>
+<script src="{{ asset('plugins/phantom/phantomjs.js') }}"></script>
 
 <script type="text/javascript">
     var data_tanggal = <?php echo $tanggal; ?>;
@@ -54,6 +55,7 @@
 
     window.onload = function() {
         var ctx = document.getElementById("canvas").getContext("2d");
+        var image = document.getElementById("canvas").toDataURL("image/jpg");
         var scale = 'scale(1)';
         document.body.style.webkitTransform =  scale;    // Chrome, Opera, Safari
         document.body.style.msTransform =   scale;       // IE 9
@@ -62,6 +64,11 @@
             type: 'bar',
             data: barChartData,
             options: {
+                animation: {
+                    onComplete: function() {
+                        window.JSREPORT_READY_TO_START = true
+                    }
+                },
                 elements: {
                     rectangle: {
                         borderWidth: 3,
@@ -80,7 +87,6 @@
         window.print(); 
         setTimeout(window.close,0);
     };
-   
    
 </script>
 @endpush

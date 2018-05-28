@@ -8,6 +8,7 @@ use App\Entities\Kunjungan\Poli;
 use Datatables;
 use Khill\Lavacharts\Lavacharts as Lava;
 use App\Satuan;
+use PDF;
 
 class PoliklinikController extends Controller
 {
@@ -61,14 +62,19 @@ class PoliklinikController extends Controller
     public function getPrintChart(Request $request, Poli $poli)
     {
         $data = $this->getChart($request, $poli); 
-        $klinik = $poli->getKlinik($data[0]);
-        $pengunjung = $poli->getPengunjung($data[0]);
-        $tanggal = $data[1]; 
+        $dataklinik = $poli->getKlinik($data[0]);
+        $datapengunjung = $poli->getPengunjung($data[0]);
+        $datatanggal = $data[1]; 
+        $klinik = json_encode($dataklinik, JSON_NUMERIC_CHECK);
+        $tanggal = json_encode($datatanggal, JSON_NUMERIC_CHECK);
+        $pengunjung = json_encode($datapengunjung, JSON_NUMERIC_CHECK);
 
-        return view('kunjungan.poli.chart_print')
-                ->with('klinik',json_encode($klinik, JSON_NUMERIC_CHECK))
-                ->with('tanggal', json_encode($tanggal, JSON_NUMERIC_CHECK))
-                ->with('pengunjung',json_encode($pengunjung, JSON_NUMERIC_CHECK));
+        $pdf = PDF::loadView('kunjungan.poli.chart_print', compact('klinik','tanggal','pengunjung'));
+        return $pdf->stream('laporan.pdf');
+        // return view('kunjungan.poli.chart_print')
+        //         ->with('klinik',json_encode($klinik, JSON_NUMERIC_CHECK))
+        //         ->with('tanggal', json_encode($tanggal, JSON_NUMERIC_CHECK))
+        //         ->with('pengunjung',json_encode($pengunjung, JSON_NUMERIC_CHECK));
     }
    
     public function getChart($request,$poli)

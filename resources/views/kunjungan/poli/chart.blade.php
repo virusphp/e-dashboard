@@ -60,6 +60,7 @@
 <script src="{{ asset('plugins/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('plugins/datetimepicker/js/locales/bootstrap-datetimepicker.id.js') }}"></script>
 <script src="{{ asset('js/chart.bundle.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
 
 <script type="text/javascript">
     var data_tanggal = <?php echo $tanggal; ?>;
@@ -120,19 +121,26 @@
 		forceParse: 0
     });
 
-    $('#print_chart').on('click',function(){
-        var data = $('#form_chart').serialize();
-        console.log(data);
-        window.open('chartjs/print?' + data ,'_blank');
-     
-    });
-
+   
     $('#print_chart_harian').on('click',function(){
         var url = window.location.toString();
         var data = url.split('?')
-        {{--  console.log(data);  --}}
         window.open('chartjs/print?' + data[1] ,'_blank');
     });
 
+    document.getElementById('print_chart').addEventListener("click", downloadPDF);
+    function downloadPDF() {
+        var canvas = document.querySelector('#canvas');
+          //creates image
+          var canvasImg = canvas.toDataURL("image/png", 1.0);
+        
+          //creates PDF from img
+          var doc = new jsPDF('landscape');
+          doc.setFontSize(20);
+          doc.setFillColor(204, 204,204, 0);
+          doc.rect(10, 10, 0, 0, "F");
+          doc.addImage(canvasImg, 'png', 10, 10, 280, 150 );
+          doc.save('laporan_kunjungan.pdf');
+      }
 </script>
 @endpush
