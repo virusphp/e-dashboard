@@ -18,7 +18,7 @@ class Dokter extends Koneksi
         $dokterPengganti = DB::connection($this->conn)
             ->table('Jadwal_Dokter_Poli_RJ_Pengganti as DPP')
                 ->where('DPP.tanggal','=', $tanggal)
-                ->select('DPP.kd_pegawai', 'SU.nama_sub_unit','DPP.keterangan','P.gelar_depan','P.gelar_belakang','P.nama_pegawai','DPP.tanggal')
+                ->select('DPP.kd_pegawai','DPP.tanggal as tanggal', 'SU.nama_sub_unit','DPP.keterangan','P.gelar_depan','P.gelar_belakang','P.nama_pegawai','DPP.tanggal')
                 ->join('Pegawai AS P',function($join){
                     $join->on('DPP.kd_pegawai','=','P.kd_pegawai');
                 })
@@ -31,10 +31,11 @@ class Dokter extends Koneksi
                 if ($dokterPengganti->count() != 0) {
                     if ($dokterPengganti[0]->Status_Pergantian == 0){
         
-                        $dokterPengganti[0]->nama_pegawai= $dokterPengganti[0]->gelar_depan.' '.$dokterPengganti[0]->nama_pegawai.' '.$dokterPengganti[0]->gelar_belakang;
+                        $dokterPengganti[0]->nama_pegawai = $dokterPengganti[0]->gelar_depan.' '.$dokterPengganti[0]->nama_pegawai.' '.$dokterPengganti[0]->gelar_belakang;
                         unset($dokterPengganti[0]->gelar_depan,$dokterPengganti[0]->gelar_belakang);
-        
+                        $dokterPengganti[0]->tanggal = TanggalIndo($dokterPengganti[0]->tanggal);
                         $res = $dokterPengganti;
+                        // dd($res);
                     } else {
                       $res['pesan'] = 'Dokter Sedang Cuti';
                     }
@@ -43,7 +44,7 @@ class Dokter extends Koneksi
                     $dokterPoli = DB::connection($this->conn)
                     ->table('Jadwal_Dokter_Poli_RJ AS DP')
                         ->where('DP.kd_hari','=', TanggalNilai($tanggal))
-                        ->select('DP.Kd_Pegawai','DP.Kd_Sub_Unit','SU.nama_sub_unit', 'DP.Kd_Hari','DP.Jumlah_Kunjungan',
+                        ->select('DP.Kd_Pegawai','DP.Kd_Sub_Unit','SU.nama_sub_unit', 'DP.Kd_Hari as tanggal','DP.Jumlah_Kunjungan',
                                 'gelar_depan','gelar_belakang','nama_pegawai')
                         ->join('Pegawai AS P',function($join){
                             $join->on('DP.Kd_Pegawai','=','P.kd_pegawai');
@@ -57,10 +58,16 @@ class Dokter extends Koneksi
         
                     if  ($dokterPoli->count() != 0) {
         
-                        $dokterPoli[0]->nama_pegawai= $dokterPoli[0]->gelar_depan.' '.$dokterPoli[0]->nama_pegawai.' '.$dokterPoli[0]->gelar_belakang;
-                        unset($dokterPoli[0]->gelar_depan,$dokterPoli[0]->gelar_belakang);
-        
+                        // $dokterPoli[0]->nama_pegawai= $dokterPoli[0]->gelar_depan.' '.$dokterPoli[0]->nama_pegawai.' '.$dokterPoli[0]->gelar_belakang;
+                        // unset($dokterPoli[0]->gelar_depan,$dokterPoli[0]->gelar_belakang);
+                        foreach($dokterPoli as $key => $val){
+                               $val->tanggal = tanggalHari($val->tanggal);
+                               $val->nama_pegawai = $val->gelar_depan.' '.$val->nama_pegawai.' '.$val->gelar_belakang;
+                               unset($val->gelar_depan, $val->gelar_belakang);
+                        }
+                        // $dokterPoli[0]->tanggal = tanggalHari($dokterPoli[0]->tanggal);
                         $res = $dokterPoli;
+                        // dd($res);
                     } else {
                         $res['pesan'] = 'Poli tidak tersedia di hari yang anda pilih';
                     }

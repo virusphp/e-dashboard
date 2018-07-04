@@ -17,6 +17,6 @@ class JadwalController extends Controller
             return DataTables::of($jadwal)->make(true);
         }
 
-        return view('jadwal.dokter.index', compact('jadwal'));
+        return view('report.jadwal.dokter.index', compact('jadwal'));
     }
 }

@@ -20,6 +20,6 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "jsreport-phantom-pdf": "^2.0.1"
+        "jsreport-phantom-pdf": "^2.0.2"
     }
 }

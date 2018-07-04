@@ -43,12 +43,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('satuan', 'SatuansController');
+Route::resource('sep', 'SepController');
+Route::post('sep/carisep', 'SepController@cariSep')->name('sep.cariSep');
+Route::delete('sep/deletesep/{no_sep}', 'SepController@deleteSep')->name('delete.sep');
 
 Route::get('kunjungan/klinik', 'Kunjungan\PoliklinikController@index')->name('daftar.poli');
 Route::get('kunjungan/klinik/print', 'Kunjungan\PoliklinikController@getPrintTabel')->name('daftar.poli.print');
 Route::get('kunjungan/chart', 'Kunjungan\PoliklinikController@coba')->name('daftar.chart');
-Route::get('kunjungan/chartjs', 'Kunjungan\PoliklinikController@indexChart')->name('daftar.chartjs');
-Route::get('kunjungan/chartjs/print', 'Kunjungan\PoliklinikController@getPrintChart')->name('daftar.chartjs.print');
+Route::get('kunjungan/klinik/chartjs', 'Kunjungan\PoliklinikController@indexChart')->name('daftar.chartjs');
+Route::get('kunjungan/klinik/chartjs/print', 'Kunjungan\PoliklinikController@getPrintChart')->name('daftar.chartjs.print');
+Route::get('kunjungan/kecamatan/chartjs', 'Kunjungan\PoliklinikController@indexKecamatanChart')->name('daftar.kec.chartjs');
+Route::get('kunjungan/provinsi/chartjs', 'Kunjungan\PoliklinikController@indexProvinsiChart')->name('daftar.pro.chartjs');
 Route::get('kunjungan/datatable', 'Kunjungan\PoliklinikController@getObject')->name('daftar.datatable');
 
 Route::get('jadwal/dokter', 'JadwalController@index')->name('daftar.dokter');

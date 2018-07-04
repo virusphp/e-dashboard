@@ -1,4 +1,4 @@
-@extends('layouts.dua')
+@extends('layouts.portal.app')
 
 @section('content')
 <div class="jumbotron jumbotron-fluid j-trans">

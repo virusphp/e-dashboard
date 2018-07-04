@@ -15,7 +15,7 @@ class SatuansController extends Controller
     public function index()
     {
         $satuan = Satuan::paginate(5);
-        return view('satuan.index',compact('satuan'));
+        return view('report.satuan.index',compact('satuan'));
     }
 
     /**
@@ -25,7 +25,7 @@ class SatuansController extends Controller
      */
     public function create()
     {
-        return view('satuan.create');
+        return view('report.satuan.create');
     }
 
     /**

@@ -15,3 +15,8 @@ ol li.breadcrumb-item a {
     border: none;
     background: linear-gradient(to bottom, #dfdcdc 0%, rgb(219, 216, 216) 100%);
 }
+
+a.navbar-brand i.big-font {
+    font-size: 2em;
+    font: outline;
+}
