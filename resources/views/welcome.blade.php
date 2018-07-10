@@ -12,9 +12,9 @@
                     </a>
             </div>
             <div class="col">
-                    <a class="logo-menu" href="http://edokter.rsudkraton.com">
+                    <a class="logo-menu" href="{{ route('simrs.index') }}">
                         <img width="80" height="80" src="{{ asset('images/dokter.png')  }}" alt=""> 
-                        Jadwal Dokter
+                        SIMRS
                     </a>
             </div>
             <div class="col">

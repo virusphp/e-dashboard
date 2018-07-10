@@ -57,3 +57,13 @@ Route::get('kunjungan/provinsi/chartjs', 'Kunjungan\PoliklinikController@indexPr
 Route::get('kunjungan/datatable', 'Kunjungan\PoliklinikController@getObject')->name('daftar.datatable');
 
 Route::get('jadwal/dokter', 'JadwalController@index')->name('daftar.dokter');
+
+Route::get('/simrs', 'Simrs\SimrsController@index')->name('simrs.index');
+
+Route::get('/simrs/tarif_karic', 'Simrs\TarifkarcisController@index')->name('simrs.tarifkarcis');
+Route::get('/simrs/jadwal_dokter', 'Simrs\JadwalDokterController@index')->name('simrs.jadwaldokter');
+Route::get('/simrs/pegawai', 'Simrs\PegawaiController@index')->name('simrs.pegawai');
+Route::get('/simrs/pasien', 'Simrs\PasienController@index')->name('simrs.pasien');
+Route::get('/simrs/rawatjalan', 'Simrs\RawatJalanController@index')->name('simrs.rawatjalan');
+Route::get('/simrs/rawatjalan/tagihan/{no_reg}', 'Simrs\RawatJalanController@getTagihan')->name('simrs.tagihan');
+// Route::get('/simrs/rawatjalan/tagihan', 'Simrs\RawatJalanController@getTagihan')->name('simrs.tagihan');

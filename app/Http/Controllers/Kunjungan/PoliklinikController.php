@@ -12,12 +12,14 @@ use Khill\Lavacharts\Lavacharts as Lava;
 use App\Satuan;
 use PDF;
 use App\Http\Requests\RequestPoliChart;
+// use Auth;
 
 class PoliklinikController extends Controller
 {
 
     public function index(Request $request, Poli $poli)
     {
+        // dd(Auth::user()->id);
         $poli = $this->getTabel($request, $poli);
         $klinik = $poli[0];
         return view('report.kunjungan.poli.tabel', compact('klinik'));

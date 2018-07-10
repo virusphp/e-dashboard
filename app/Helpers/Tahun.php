@@ -149,6 +149,39 @@ function tanggalHari($tanggal)
     return $dayList[$tanggal];
 }
 
+function tanggalsaja($nilai)
+{
+    $tgl =  date('Y-m-d', strtotime($nilai));
+    $day = date('D', strtotime($tgl));
+    $mon = date('F', strtotime($tgl));
+    $dayList = array(
+        'Sun' => 'Minggu',
+        'Mon' => 'Senin',
+        'Tue' => 'Selasa',
+        'Wed' => 'Rabu',
+        'Thu' => 'Kamis',
+        'Fri' => 'Jumat',
+        'Sat' => 'Sabtu'
+    );
+    $bulan = array (
+		1 =>   'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+    );
+    $pecahkan = explode('-', $tgl);
+    $hari = $dayList[$day];
+    return $hari.' '.$pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+
 // <?php 
 // for($i=0;$i<8;$i++) $a[]=date("Y-m-d H:i:s", time()+(3600*24*$i));
 
