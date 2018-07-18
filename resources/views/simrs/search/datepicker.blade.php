@@ -2,7 +2,22 @@
    <form id="search" action="{{ route('simrs.rawatjalan') }}" class="form-inline" role="search" >
         <div class="controls">
             <div class='input-group date {{ $errors->has('serach') ? 'has-error' : '' }}'>
-                <input type='text' name="search" class="form-control" />
+                <input type='text' name="search" class="form-control" placeholder="Cari..."/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-secondary">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+    <div class="clearfix"></div>
+    <form id="search" action="{{ route('simrs.rawatjalan') }}" class="form-inline" role="search" >
+        <div class="controls">
+            <div class='input-group date {{ $errors->has('tgl1') ? 'has-error' : '' }}' id='datetimepicker'>
+                <input type='text' name="tgl" class="form-control" placeholder="Tanggal..." />
+                <span class="input-group-addon">
+                    <span class="fa fa-calendar">
+                    </span>
+                </span>
             </div>
         </div>
         <button type="submit" class="btn btn-secondary">
@@ -15,7 +30,7 @@
         <div class="controls">
             {{-- Tanggal pertama --}}
             <div class='input-group date {{ $errors->has('tgl1') ? 'has-error' : '' }}' id='datetimepicker1'>
-                <input type='text' name="tgl1" class="form-control" />
+                <input type='text' name="tgl1" class="form-control" placeholder="Dari..." />
                 <span class="input-group-addon">
                     <span class="fa fa-calendar">
                     </span>
@@ -24,7 +39,7 @@
             s/d
             {{-- Tanggal kedua --}}
             <div class='input-group date {{ $errors->has('tgl2') ? 'has-error' : '' }}' id='datetimepicker2'>
-                <input type='text' name="tgl2" class="form-control" />
+                <input type='text' name="tgl2" class="form-control" placeholder="Sampai..." />
                 <span class="input-group-addon">
                     <span class="fa fa-calendar">
                     </span>

@@ -17,23 +17,23 @@ class RawatJalanController extends Controller
                 'tgl1' => 'required',
                 'tgl2' => 'required',
             ];
-            // $validator = Validator::make($request->all(), [
                 
-            // ]);
             $costumMessage = [
                 'tgl1.required' => 'Tanggal pertama harus di isi',
                 'tgl2.required' => 'Tanggal kedua harus di isi'
             ];
             $this->validate($request,$rules, $costumMessage);
-            // if ($validator->fails()) {
-            //     return redirect()
-            //                 ->route('simrs.rawatjalan')
-            //                 ->withErrors($validator)
-            //                 ->withInput();
-            // }
+        } elseif($request->only('tgl') != null) {
+            $rules = [
+                'tgl' => 'required',
+            ];
+            $costumMessage = [
+                'tgl.required' => 'Tanggal harus di isi',
+            ];
+            $this->validate($request,$rules, $costumMessage);
         }
-
         $rawat_jalan = $rw_jalan->getData($request);
+        // dd($rawat_jalan);
         return view('simrs.rawat_jalan.index', compact('rawat_jalan'));
     }
 

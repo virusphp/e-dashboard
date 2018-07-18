@@ -81,6 +81,11 @@
 <script type="text/javascript" src="{{ asset('core-ui/datepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script type="text/javascript">
     $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'Y-M-D'
+        });
+    });
+    $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'Y-M-D'
         });

@@ -11,6 +11,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SIMRS Mini</title>
     <!-- Icons-->
     <link href="{{ asset('core-ui/css/font-awesome.min.css') }}" rel="stylesheet">

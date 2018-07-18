@@ -19,6 +19,10 @@
                 <i class="nav-icon icon-puzzle"></i> Jadwal Dokter</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{ route('simrs.jadwaldokterpengganti') }}">
+                <i class="nav-icon icon-puzzle"></i> Dokter Pengganti</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{ route('simrs.pegawai') }}">
                 <i class="nav-icon icon-people"></i> Pegawai</a>
             </li>
@@ -36,10 +40,10 @@
                 <a class="nav-link" href="{{ route('simrs.rawatjalan') }}">
                   <i class="nav-icon icon-puzzle"></i> Rawat Jalan</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('simrs.jadwaldokter') }}">
+              {{-- <li class="nav-item">
+                <a class="nav-link" href="#">
                   <i class="nav-icon icon-puzzle"></i> Rawat Inap</a>
-              </li>
+              </li> --}}
             </ul>
           </li>
       </ul>

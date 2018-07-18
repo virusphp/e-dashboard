@@ -14,17 +14,18 @@ class RawatJalan extends Koneksi
         // $tgl_satu = date('Y-m-d', strtotime($request->tgl1));
         // $tgl_dua = date('Y-m-d', strtotime($request->tgl2));
         $data = DB::connection($this->conn)->table('Registrasi AS reg')
-            // ->whereBetween('reg.tgl_reg',[$tgl_satu, $tgl_dua])
             ->where(function($query) use ($request) {
-                if ((($tglsatu = $request->get('tgl1') & $tgldua = $request->get('tgl2')) || $search = $request->get('search')) ) 
+                if ($request->only('tgl1','tgl2')) 
                 {
-                    $tgl_satu = date('Y-m-d', strtotime($tglsatu));
-                    $tgl_dua = date('Y-m-d', strtotime($tgldua));
-                    $keywords = isset($search) ? '%'. $search . '%' : '';
-                    // dd($search);
-                    $query->orWhere('p.nama_pasien', 'LIKE', $keywords); 
+                    $tgl_satu = date('Y-m-d', strtotime($request->tgl1));
+                    $tgl_dua = date('Y-m-d', strtotime($request->tgl2));
                     $query->orWhereBetween('reg.tgl_reg',[$tgl_satu, $tgl_dua]);
-                    // $query->orWhere('kd_pegawai', 'LIKE', $keywords);
+                } elseif($request->only('search')) {
+                    $keywords = isset($request->search) ? '%'. $request->search . '%' : '';
+                    $query->orWhere('p.nama_pasien', 'LIKE', $keywords); 
+                } elseif ($request->only('tgl')) {
+                    $tanggal =  date('Y-m-d', strtotime($request->tgl));
+                    $query->orWhere('reg.tgl_reg', '=', $tanggal); 
                 } else {
                     $query->orWhere('reg.tgl_reg', date('Y-m-d'));
                 }

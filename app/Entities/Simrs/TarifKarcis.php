@@ -30,4 +30,5 @@ class TarifKarcis extends Koneksi
             // dd(var_dump($data[0]->harga));
         return $data;
     }
+    
 }
