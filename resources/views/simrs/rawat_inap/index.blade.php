@@ -7,7 +7,7 @@
     </li>
 
     <li class="breadcrumb-item">
-      <a href="{{ route('simrs.rawatjalan') }}">Rawat Jalan</a>
+      <a href="{{ route('simrs.rawatjalan') }}">Rawat Inap</a>
     </li>
     <li class="breadcrumb-item active">Index</li>
 </ol>
@@ -25,7 +25,8 @@
       </ul>
     </div>
   @endif
-
+</div>
+<div class="col-md-12">
   <div class="card">
       <div class="card-header">
           @include('simrs.search.datepicker')
@@ -40,13 +41,13 @@
               {{-- <th>No Bukti</th> --}}
               <th>Nama Pasien</th>
               <th>Jenis Kelamin</th>
-              <th>Poliklinik</th>
+              <th>No Kamar</th>
               <th>Dokter Pemeriksa</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($rawat_jalan as $data)
+            @foreach($rawat_inap as $data)
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $data->no_reg }}</td>
@@ -54,10 +55,10 @@
               {{-- <td>{{ $data->no_bukti }}</td> --}}
               <td>{{ $data->nama_pasien }}</td>
               <td>{{ kelamin($data->jns_kel) }}</td>
-              <td>{{ $data->nama_sub_unit }}</td>
+              <td>{{ $data->kd_tempat_tidur }}</td>
               <td>{{ $data->nama_pegawai }}</td>
               <td>
-                  <a href="{{ route('simrs.tagihan.rawatjalan', $data->no_reg) }}" id="mtagihan" class="btn btn-success btn-sm">
+                  <a href="{{ route('simrs.tagihan.rawatinap', $data->no_reg) }}" id="mtagihan" class="btn btn-success btn-sm">
                     <i class="icon-eye icons"></i> view
                   </a>
               </td>
@@ -65,12 +66,11 @@
             @endforeach
           </tbody>
         </table>
-        {!! $rawat_jalan->appends(Request::all())->links() !!}
+        {!! $rawat_inap->appends(Request::all())->links() !!}
       </div>
   </div>
 </div>
 @endsection
-
 @push('css')
 <link rel="stylesheet" href="{{ asset('core-ui/css/bootstrap.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('core-ui/datepicker/css/bootstrap-datetimepicker.min.css') }}" />

@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Simrs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Entities\Simrs\RawatJalan;
+use App\Entities\Simrs\RawatInap;
 use Validator;
 
-class RawatJalanController extends Controller
+class RawatInapController extends Controller
 {
-    public function index(Request $request, RawatJalan $rw_jalan)
+    public function index(Request $request, RawatInap $rw_inap)
     {
         // dd($request->all() == null);
         if ($request->only('tgl1','tgl2') != null) {
@@ -32,16 +32,16 @@ class RawatJalanController extends Controller
             ];
             $this->validate($request,$rules, $costumMessage);
         }
-        $rawat_jalan = $rw_jalan->getData($request);
-        $route = Route('simrs.rawatjalan');
-        // dd($rawat_jalan);
-        return view('simrs.rawat_jalan.index', compact('rawat_jalan','route'));
+        $rawat_inap = $rw_inap->getData($request);
+        $route = Route('simrs.rawatinap');
+        // dd($rawat_inap);
+        return view('simrs.rawat_inap.index', compact('rawat_inap','route'));
     }
 
-    public function getTagihan(RawatJalan $rw_jalan, $no_reg)
+    public function getTagihan(RawatInap $rw_inap, $no_reg)
     {
-        $tagihan_pasien = $rw_jalan->getTagihan($no_reg);
+        $tagihan_pasien = $rw_inap->getTagihan($no_reg);
         // dd($tagihan_pasien);   
-        return view('simrs.rawat_jalan.tagihan.tagihan',compact('tagihan_pasien'));
+        return view('simrs.rawat_inap.tagihan.tagihan',compact('tagihan_pasien'));
     }
 }

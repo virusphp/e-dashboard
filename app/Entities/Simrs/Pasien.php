@@ -23,4 +23,13 @@ class Pasien extends Koneksi
             // dd(var_dump($data[0]->no_RM));
         return $data;
     }
+
+    public function getPasien($no_rm)
+    {
+        $data = DB::connection($this->conn)->table('Pasien')
+                ->select('no_RM','nama_pasien','jns_kel','alamat')
+                ->where('no_RM', '=', $no_rm)
+                ->get();
+        return $data;
+    }
 }

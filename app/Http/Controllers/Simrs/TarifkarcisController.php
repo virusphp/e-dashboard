@@ -11,7 +11,17 @@ class TarifkarcisController extends Controller
     {
         $tarif_karcis = $tarif->getData($request);
         $route = Route('simrs.tarifkarcis');
-        // dd($route);
         return view('simrs.tarif_karcis.index', compact('tarif_karcis','route'));
+    }
+
+    public function getTarif(Request $request, TarifKarcis $tarif)
+    {
+        if ($request->ajax()) {
+            // dd($request->kd_sub, $request->tgl);
+            $tarif = $tarif->getTarif($request->kd_sub, $request->tgl);
+        }
+
+        return $tarif;
+        
     }
 }
