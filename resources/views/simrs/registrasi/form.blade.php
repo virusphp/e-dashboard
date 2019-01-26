@@ -36,6 +36,7 @@
                     <label class="col-md-3 col-form-label" for="tarif">Dokter Klinik</label>
                         <div class="col-md-9">
                         <input type="text" id="dokter" name="dokter" class="form-control" readonly>
+                        <input type="hidden" id="kd_dokter" name="kd_dokter" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -82,6 +83,7 @@ $('#klinik').change(function() {
             $('#tarif').val(item.harga_klinik);
             $('#tarif_klinik').val(item.harga);
             $('#dokter').val(item.nama_pegawai);
+            $('#kd_dokter').val(item.kd_pegawai);
           });
         }
     });

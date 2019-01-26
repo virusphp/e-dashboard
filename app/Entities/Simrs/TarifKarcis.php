@@ -50,7 +50,7 @@ class TarifKarcis extends Koneksi
     {
         // dd(tanggalNilai($tgl));
         $karcis = DB::connection($this->conn)->table('Tarif_Karcis_RJ as tk')
-                ->select('tk.harga','p.nama_pegawai')
+                ->select('tk.harga','p.nama_pegawai','p.kd_pegawai')
                 ->join('Jadwal_Dokter_Poli_RJ as jd', function($join){
                     $join->on('tk.kd_sub_unit','=','jd.kd_sub_unit')
                         ->join('Pegawai as p', function($join){

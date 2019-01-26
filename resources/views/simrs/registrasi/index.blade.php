@@ -97,9 +97,9 @@ $('#norm').on('keyup',function(){
             $('#nama_pasien').val(item.nama_pasien);
             $('#alamat_pasien').val(item.alamat);
             if (item.jns_kel == 0) {
-              var kelamin = "Laki - laki";
-            } else {
               var kelamin = "Perempuan";
+            } else {
+              var kelamin = "Laki - laki";
             }
             $('#jenis_kelamin').val(kelamin);
           });

@@ -41,6 +41,13 @@ Route::get('/', 'HomeController@welcome')->name('welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/vclaim', 'HomeController@getVclaim')->name('vclaim.bpjs');
+Route::get('/sisrute', 'HomeController@getSisrute')->name('sisrute');
+Route::get('/siranap', 'HomeController@getSiranap')->name('siranap');
+Route::get('/ctki', 'HomeController@getCtki')->name('ctki');
+Route::get('/katalog', 'HomeController@getKatalog')->name('katalog');
+Route::get('/sijarimas', 'HomeController@getSijarimas')->name('sijarimas');
+Route::get('/gmail', 'HomeController@getGmail')->name('gmail');
 
 Route::resource('satuan', 'SatuansController');
 Route::resource('sep', 'SepController');

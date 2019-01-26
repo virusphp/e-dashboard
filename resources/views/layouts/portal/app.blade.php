@@ -25,17 +25,16 @@
         
       </header>
 
-      <main role="main" class="inner cover">
+      <main role="main" class="">
             @yield('content')
       </main>
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
-          <p>Copyright <a href="http://rsudkraton.com">@RSUD Kraton</a>.</p>
+          <p>Copyright <a href="https://rsudkraton.id">@RSUD Kraton</a>.</p>
         </div>
       </footer>
     </div>
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

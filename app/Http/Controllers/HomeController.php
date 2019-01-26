@@ -30,4 +30,39 @@ class HomeController extends Controller
     {
         return view('welcome');
     }
+
+    public function getVclaim()
+    {
+        return view('vclaim.index');
+    }
+
+    public function getSisrute()
+    {
+        return view('sisrute.index');
+    }
+
+    public function getSiranap()
+    {
+        return view('siranap.index');
+    }
+
+    public function getCtki()
+    {
+        return view('ctki.index');
+    }
+
+    public function getKatalog()
+    {
+        return view('katalog.index');
+    }
+
+    public function getSijarimas()
+    {
+        return view('sijarimas.index');
+    }
+    
+    public function getGmail()
+    {
+        return view('gmail.index');
+    }
 }

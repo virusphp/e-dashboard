@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Entities\Simrs\Pasien;
 use App\Entities\Simrs\Periksa;
 use App\Entities\Simrs\TarifKarcis;
+use App\Entities\Simrs\Registrasi;
 
 class RegistrasiController extends Controller
 {
@@ -29,9 +30,11 @@ class RegistrasiController extends Controller
         return view('simrs.registrasi.index', compact('tgl_periksa', 'klinik', 'cara_bayar'));
     }
 
-    public function regPasien(Request $request)
+    public function regPasien(Request $request, Registrasi $reg)
     {
-        dd($request->all());
+        // dd($request->all());
+        $register =  $reg->regPasien($request);
+        return $register;
     }
 
     public function getPasien(Request $request, Pasien $pasien)
