@@ -49,7 +49,7 @@
             </div>
 
             <div class="col">
-                    <a class="logo-menu" href="http://epasien.rsudkraton.com">
+                    <a class="logo-menu" href="http://epasien.rsudkraton.id">
                         <img width="80" height="80" src="{{ asset('images/register.png')  }}" alt=""> 
                         Pendaftaran
                     </a>
